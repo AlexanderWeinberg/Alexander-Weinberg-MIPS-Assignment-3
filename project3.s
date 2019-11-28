@@ -138,7 +138,12 @@ exponent:
 	ble $t8, 1, combine	#if the exponet is 1 there is no need to multiply the base by itself
 	mul $t9, $t9, 30 	# multpling my base by itself to simulate raising the number to a power
 	addi $t8, $t8, -1	# decreasing the exponent
-	j exponent
+	j exponent		#jumps too exponent loop
+combine:
+	mul $s2, $t9, $s0	#multiplied the converted bit and my base raised to a power
+	add $s1,$s1,$s2		# adding the coverted numbers together 
+	j continue_2		#jumps too continue_2 loop
+finish : jr $ra			#jumps back to substring
 
 Exit:
 	li $v0, 10	# exits program
