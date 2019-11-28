@@ -93,7 +93,11 @@ substring:
 	addi $t1,$t1,1 #check track of the amount substring 	
 	sub $sp, $sp,4 # creates space in the stack
 	sw $t6, 0($sp) #stores what was in $t6 into the stack
-
+	move $t6,$t0  # store the pointer to the bit after the comma
+	lw $t4,0($sp) #loads what was in the stack at that posistion into $t4
+	li $s1,0 #sets $s1 to 0 
+	jal Subprogram_B
+	lb $s0, ($t0) # loads the bit that $t0 is pointing to
 Subprogram_B:
 
 Subprogram_C:
