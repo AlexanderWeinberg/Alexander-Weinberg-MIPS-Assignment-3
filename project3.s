@@ -131,12 +131,12 @@ valid_CAP:
 valid_low:
 	sub $s0, $s0, 87 #converts lowercase bits
 	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
-	li $t9, 30
+	li $t9, 29
 	j exponent
 exponent:
 	#raises my base to a certain exponent by muliplying itself repeatly
 	ble $t8, 1, combine	#if the exponet is 1 there is no need to multiply the base by itself
-	mul $t9, $t9, 30 	# multpling my base by itself to simulate raising the number to a power
+	mul $t9, $t9, 29 	# multpling my base by itself to simulate raising the number to a power
 	addi $t8, $t8, -1	# decreasing the exponent
 	j exponent		#jumps too exponent loop
 combine:
@@ -162,6 +162,11 @@ comma:
 	la $a0, comma_msg #prints a comma
 	syscall
 	j done
+invalidprint:
+	li $v0, 4
+	la $a0, NaN_msg #prints a nonvaild input
+	syscall	
+	j comma 	#jumps to print a comma
 Exit:
 	li $v0, 10	# exits program
 	syscall
