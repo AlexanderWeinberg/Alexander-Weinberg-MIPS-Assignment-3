@@ -13,11 +13,18 @@ li $v0,8 	      # takes in and reads input
 la $a0, user_input    #puts the users input into the $a0 register
 li $a1, 1001            #takes in 1000 spaces from the user input even though it says 1001 (NULL)
 syscall
+jal SubprogramA      #unconditional jump to subprogramA
 
+continue_1:
+	j print #jumps to print loop
 
 ############################################################################
 SubprogramA:
-
+	sub $sp, $sp,4 #creates spaces in the stack
+	sw $a0, 0($sp) #stores input into the stack
+	lw $t0, 0($sp) # stores the input into $t0
+	addi $sp,$sp,4 # moves the stack pointer up
+	move $t6, $t0 # stores the begining of the input into $t6
 SubprogramB:
 
 SubprogramC
