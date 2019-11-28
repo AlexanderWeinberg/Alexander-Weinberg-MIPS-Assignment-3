@@ -68,6 +68,14 @@ vaild:
 invalid_loop:
 	lb $s0, ($t0) # loads the bit that $t0 is pointing to
 	beq $s0, 0, insubstring# check if the bit is null
+	beq $s0, 10, insubstring #checks if the bit is a new line 	
+	addi $t0,$t0,1 #move the $t0 to the next element of the array	
+	beq $s0, 44, insubstring #check if bit is a comma
+	#addi $t3, $t3,1 #check track of how many valid characters are in the substring
+	
+	j invalid_loop #jumps to the beginning of loop
+
+
 insubstring:
 substring:
 
