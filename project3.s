@@ -26,6 +26,12 @@ SubprogramA:
 	addi $sp,$sp,4 # moves the stack pointer up
 	move $t6, $t0 # stores the begining of the input into $t6
 start:
+	li $t2,0 #used to check for space or tabs within the input
+	li $t7, -1 #used for invaild input
+	lb $s0, ($t0) # loads the bit that $t0 is pointing to
+	#beq $s0, 0, finish
+	beq $s0, 9, skip # checks if the bit is a tabs character 
+	beq $s0, 32, skip #checks if the bit is a space character
 skip:
 	addi $t0,$t0,1 #move the $t0 to the next element of the array
 	j start 	#jumps to start loop
