@@ -81,11 +81,17 @@ insubstring:
 	sw $t7, 0($sp) #stores what was in $t6 into the stack
 	move $t6,$t0  # store the pointer to the bit after the comma
 	lb $s0, ($t0) # loads the bit that $t0 is pointing to
+	beq $s0, 0, continue_1# check if the bit is null
+	beq $s0, 10, continue_1 #checks if the bit is a new line 
+	beq $s0,44, invalid_loop #checks if the next bit is a comma
+	li $t3,0 #resets the amount of valid characters back to 0
+	li $t2,0 #resets my space/tabs checker back to zero
+	j loop
 substring:
 
-SubprogramB:
+Subprogram_B:
 
-SubprogramC:
+Subprogram_C:
 
 
 Exit:
