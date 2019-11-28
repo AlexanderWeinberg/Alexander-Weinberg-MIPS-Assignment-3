@@ -1,14 +1,20 @@
 #My ID: 02876360 %11 = 3 +26 = Base 29
 
 .data
-user_input: .space 1000	   #makes 1000 spaces for the user input
+user_input: .space 1001	   #makes 1000 spaces for the user input
 endl: .asciiz "\n"	   #makes asciiz character for a new line
 NaN_msg: .asciiz "NaN"  #makes asciiz NaN message
-
+comma: .asciiz ","      #makes asciiz comma character
 
 .text
 
 main:
+li $v0,8 	      # takes in and reads input
+la $a0, user_input    #puts the users input into the $a0 register
+li $a1, 1001            #takes in 1000 spaces from the user input even though it says 1001 (NULL)
+syscall
+
+
 ############################################################################
 SubprogramA:
 
