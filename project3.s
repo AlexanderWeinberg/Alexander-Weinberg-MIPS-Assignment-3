@@ -119,10 +119,14 @@ Subprogram_C:
 	ble $s0, 84, valid_CAP
 	ble $s0, 116, valid_low
 number:
-	
 	sub $s0, $s0, 48	#converts interger bits 
 	beq $t3, 0, combine	# if there are no charaters left that mean the exponent is zero
 	li $t9, 29		#29 for my Base-29
+	j exponent		#jumps to exponent loop
+valid_CAP:
+	sub $s0, $s0, 55 #converts uppercase bits
+	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
+	li $t9, 29
 	j exponent
 
 Exit:
