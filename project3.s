@@ -156,6 +156,12 @@ done:
 	li $v0, 1
 	lw $a0, 0($sp) #prints element
 	syscall
+comma:
+	beq $t1, 0,Exit #if there are now elements left it terminates the program
+	li $v0, 4
+	la $a0, comma_msg #prints a comma
+	syscall
+	j done
 Exit:
 	li $v0, 10	# exits program
 	syscall
