@@ -25,11 +25,19 @@ SubprogramA:
 	lw $t0, 0($sp) # stores the input into $t0
 	addi $sp,$sp,4 # moves the stack pointer up
 	move $t6, $t0 # stores the begining of the input into $t6
+start:
+skip:
+
 SubprogramB:
 
-SubprogramC
+SubprogramC:
 
 
+
+
+Exit:
+	li $v0, 10	# exits program
+	syscall
 #############################################################################
 
 #saved registers
