@@ -56,7 +56,15 @@ check:
 	ble $s0, 116, vaild 	# checks to see if the ascii less than 116(lowercase letters)
 	bge $s0, 117, invalid_loop # checks to see if the ascii greater than 116
 
-	
+gap:
+	addi $t2,$t2,-1 #keeps track of spaces and tabs
+	j loop
+
+vaild:
+	addi $t3, $t3,1 #keeps track of how many valid characters are in the substring
+	mul $t2,$t2,$t7 #if there was a space before a this valid character it will change $t2 to a positive number
+	j loop #jumps to the beginning of loop	
+
 SubprogramB:
 
 SubprogramC:
