@@ -118,6 +118,12 @@ Subprogram_C:
 	ble $s0, 57, number #sorts the bit to the apporiate function
 	ble $s0, 84, valid_CAP
 	ble $s0, 116, valid_low
+number:
+	
+	sub $s0, $s0, 48	#converts interger bits 
+	beq $t3, 0, combine	# if there are no charaters left that mean the exponent is zero
+	li $t9, 29		#29 for my Base-29
+	j exponent
 
 Exit:
 	li $v0, 10	# exits program
