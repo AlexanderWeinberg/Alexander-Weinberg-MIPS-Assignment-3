@@ -72,11 +72,15 @@ invalid_loop:
 	addi $t0,$t0,1 #move the $t0 to the next element of the array	
 	beq $s0, 44, insubstring #check if bit is a comma
 	#addi $t3, $t3,1 #check track of how many valid characters are in the substring
-	
 	j invalid_loop #jumps to the beginning of loop
 
 
 insubstring:
+	addi $t1,$t1,1 #keeps track of the amount substring 	
+	sub $sp, $sp,4# creates space in the stack
+	sw $t7, 0($sp) #stores what was in $t6 into the stack
+	move $t6,$t0  # store the pointer to the bit after the comma
+	lb $s0, ($t0) # loads the bit that $t0 is pointing to
 substring:
 
 SubprogramB:
