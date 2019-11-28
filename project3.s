@@ -27,7 +27,14 @@ SubprogramA:
 	move $t6, $t0 # stores the begining of the input into $t6
 start:
 skip:
-
+	addi $t0,$t0,1 #move the $t0 to the next element of the array
+	j start 	#jumps to start loop
+loop:
+	lb $s0, ($t0) # loads the bit that $t0 is pointing to
+	beq $s0, 0, substring# check if the bit is null
+	beq $s0, 10, substring #checks if the bit is a new line 	
+	addi $t0,$t0,1 #move the $t0 to the next element of the array	
+	beq $s0, 44, substring #check if bit is a comma
 SubprogramB:
 
 SubprogramC:
