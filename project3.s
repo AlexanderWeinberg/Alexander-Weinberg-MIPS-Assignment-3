@@ -145,6 +145,13 @@ combine:
 	j continue_2		#jumps too continue_2 loop
 finish : jr $ra			#jumps back to substring
 
+print:
+	mul $t1,$t1,4 #getting the amount of space needed to move the stack pointer to the beginning of the stack
+	add $sp, $sp $t1 #moving the stack pointer to the beginning of the stack	
+done:	
+	sub $t1, $t1,4	#keeping track of amount of elements left
+	sub $sp,$sp,4 #moving the stack pointer to the next element	
+	lw $s7, 0($sp)	#storing that element into $s7
 Exit:
 	li $v0, 10	# exits program
 	syscall
