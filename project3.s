@@ -109,6 +109,9 @@ Subprogram_B:
 	lb $s0, ($t4) # loads the bit that will be converted
 	addi $t4,$t4,1	# moves to the next element in the array
 	j Subprogram_C 
+continue_2:
+	sw $s1,0($sp)	#stores the converted number
+	j Subprogram_B
 Subprogram_C:
 
 
