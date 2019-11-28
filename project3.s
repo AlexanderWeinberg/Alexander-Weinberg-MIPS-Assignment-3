@@ -128,6 +128,11 @@ valid_CAP:
 	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
 	li $t9, 29
 	j exponent
+valid_low:
+	sub $s0, $s0, 87 #converts lowercase bits
+	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
+	li $t9, 30
+	j exponent
 
 Exit:
 	li $v0, 10	# exits program
