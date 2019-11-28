@@ -32,6 +32,9 @@ start:
 	#beq $s0, 0, finish
 	beq $s0, 9, skip # checks if the bit is a tabs character 
 	beq $s0, 32, skip #checks if the bit is a space character
+	move $t6, $t0 #store the first non-space/tab character
+	j loop # jumps to the beginning of the loop function
+
 skip:
 	addi $t0,$t0,1 #move the $t0 to the next element of the array
 	j start 	#jumps to start loop
@@ -41,6 +44,10 @@ loop:
 	beq $s0, 10, substring #checks if the bit is a new line 	
 	addi $t0,$t0,1 #move the $t0 to the next element of the array	
 	beq $s0, 44, substring #check if bit is a comma
+check:
+	bgt $t2,0,invalid_loop #checks to see if there were any spaces or tabs in between valid characters
+	beq $s0, 9,  gap #checks to see if there is a tab characters
+	beq $s0, 32, gap #checks to see if there is a space character
 SubprogramB:
 
 SubprogramC:
