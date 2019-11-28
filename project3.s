@@ -65,6 +65,12 @@ vaild:
 	mul $t2,$t2,$t7 #if there was a space before a this valid character it will change $t2 to a positive number
 	j loop #jumps to the beginning of loop	
 
+invalid_loop:
+	lb $s0, ($t0) # loads the bit that $t0 is pointing to
+	beq $s0, 0, insubstring# check if the bit is null
+insubstring:
+substring:
+
 SubprogramB:
 
 SubprogramC:
