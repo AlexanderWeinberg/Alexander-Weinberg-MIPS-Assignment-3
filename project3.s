@@ -3,12 +3,21 @@
 .data
 user_input: .space 1000	   #makes 1000 spaces for the user input
 endl: .asciiz "\n"	   #makes asciiz character for a new line
-Nan_msg: .asciiz "NaN"  #makes asciiz NaN message
+NaN_msg: .asciiz "NaN"  #makes asciiz NaN message
 
 
 .text
 
 main:
+############################################################################
+SubprogramA:
+
+SubprogramB:
+
+SubprogramC
+
+
+#############################################################################
 
 #saved registers
 #la $al, user_input
@@ -52,7 +61,7 @@ la $a0, endl    #prints the new line character making it skip a line
 syscall
 
 li $v0, 4        #prints out a string
-la $a0, invalid_msg    #prints the invalid input message
+la $a0, NaN_msg    #prints the NaN message
 syscall
 
 li $v0, 10    #exits the program
@@ -78,6 +87,7 @@ subu $t0, $t0, 1       # iterates the the position of the bit in $t0 to begin re
 lb $a0 ($t0)          #load the bit for the $a0 position in $t0
 beq $a0, 32, end_of_loop #checks if a space is found and if so sends back up to end loop
 beq $a0, 9, end_of_loop    #checks if a tab is found and if so sends back up to end loop
+beq $a0, 44, end_of_loop   #checks if a comma is found to end that loop
 j filter		   # jumps to final loop
 
 
