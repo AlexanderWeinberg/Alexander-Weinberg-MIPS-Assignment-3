@@ -113,7 +113,11 @@ continue_2:
 	sw $s1,0($sp)	#stores the converted number
 	j Subprogram_B
 Subprogram_C:
-
+	move $t8, $t3	   #stores the amount of characters left to use as an exponent
+	li $t9, 1	    # $t9 represents 30 to a certian power and set equal to 1
+	ble $s0, 57, number #sorts the bit to the apporiate function
+	ble $s0, 84, valid_CAP
+	ble $s0, 116, valid_low
 
 Exit:
 	li $v0, 10	# exits program
