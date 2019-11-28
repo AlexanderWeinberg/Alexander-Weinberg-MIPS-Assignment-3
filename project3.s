@@ -48,11 +48,18 @@ check:
 	bgt $t2,0,invalid_loop #checks to see if there were any spaces or tabs in between valid characters
 	beq $s0, 9,  gap #checks to see if there is a tab characters
 	beq $s0, 32, gap #checks to see if there is a space character
+	ble $s0, 47, invalid_loop # checks to see if the ascii less than 48
+	ble $s0, 57, vaild # checks to see if the ascii less than 57(integers)
+	ble $s0, 64, invalid_loop # checks to see if the ascii less than 64
+	ble $s0, 84, vaild	# checks to see if the ascii less than 84(capital letters)
+	ble $s0, 96, invalid_loop # checks to see if the ascii less than 96
+	ble $s0, 116, vaild 	# checks to see if the ascii less than 116(lowercase letters)
+	bge $s0, 117, invalid_loop # checks to see if the ascii greater than 116
+
+	
 SubprogramB:
 
 SubprogramC:
-
-
 
 
 Exit:
