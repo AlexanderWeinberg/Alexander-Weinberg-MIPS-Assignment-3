@@ -98,6 +98,11 @@ substring:
 	li $s1,0 #sets $s1 to 0 
 	jal Subprogram_B
 	lb $s0, ($t0) # loads the bit that $t0 is pointing to
+	beq $s0, 0, continue_1 # check if the bit is null
+	beq $s0, 10, continue_1 #checks if the bit is a new line 
+	beq $s0,44, invalid_loop #checks if the next bit is a comma
+	li $t2,0 #resets my space/tabs checker back to zero
+	j loop
 Subprogram_B:
 
 Subprogram_C:
