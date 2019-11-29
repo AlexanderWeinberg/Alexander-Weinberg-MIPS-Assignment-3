@@ -114,62 +114,62 @@ continue_2:
 	sw $s1,0($sp)		#stores the converted number
 	j Subprogram_B		#jumps to Subprogram_B
 Subprogram_C:
-	move $t8, $t3	   #stores the amount of characters left to use as an exponent
-	li $t9, 1	    # $t9 represents 30 to a certian power and set equal to 1
-	ble $s0, 57, number #sorts the bit to the apporiate function
-	ble $s0, 84, valid_CAP
-	ble $s0, 116, valid_low
+	move $t8, $t3	   	#stores the amount of characters left to use as an exponent in register $t3
+	li $t9, 1	    	#set register $t9 (which is currently 29 ) equal to 1
+	ble $s0, 57, number 	#sorts the bit to the number function
+	ble $s0, 84, valid_CAP	#sorts the bit to the valid_CAP function
+	ble $s0, 116, valid_low	#sorts the bit to the valid_low function
 number:
-	sub $s0, $s0, 48	#converts interger bits 
-	beq $t3, 0, combine	# if there are no charaters left that mean the exponent is zero
+	sub $s0, $s0, 48	#subtracts from ascii value to convert bit to decimal
+	beq $t3, 0, combine	# if there are no charaters left, the exponent is 0
 	li $t9, 29		#29 for my Base-29
 	j exponent		#jumps to exponent loop
 valid_CAP:
-	sub $s0, $s0, 55 #converts uppercase bits
-	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
-	li $t9, 29
-	j exponent
+	sub $s0, $s0, 55 	#converts uppercase bits
+	beq $t3, 0, combine 	# if there are no charaters left, the exponent is 0
+	li $t9, 29		#29 for my Base-29
+	j exponent		#jumps to exponent loop
 valid_low:
-	sub $s0, $s0, 87 #converts lowercase bits
-	beq $t3, 0, combine # if there are no charaters left that mean the exponent is zero
-	li $t9, 29
-	j exponent
+	sub $s0, $s0, 87 	#converts lowercase bits
+	beq $t3, 0, combine 	# if there are no charaters left, the exponent is 0 
+	li $t9, 29		#29 for my Base-29
+	j exponent		#jumps to exponent loop
 exponent:
-	#raises my base to a certain exponent by muliplying itself repeatly
-	ble $t8, 1, combine	#if the exponet is 1 there is no need to multiply the base by itself
-	mul $t9, $t9, 29 	# multpling my base by itself to simulate raising the number to a power
-	addi $t8, $t8, -1	# decreasing the exponent
-	j exponent		#jumps too exponent loop
+				#raises my base to a specific exponent by muliplying itself repeatly
+	ble $t8, 1, combine	#if the exponet is 1, no need to multiply the base by itself anymore
+	mul $t9, $t9, 29 	# multpling base by itself to simulate raising the number to a power
+	addi $t8, $t8, -1	# adding -1 to decrease the exponent
+	j exponent		#jumps to exponent loop
 combine:
-	mul $s2, $t9, $s0	#multiplied the converted bit and my base raised to a power
-	add $s1,$s1,$s2		# adding the coverted numbers together 
+	mul $s2, $t9, $s0	#multiplied the converted bit and base raised to a power
+	add $s1,$s1,$s2		# adding the coverted numbers together to get actual output 
 	j continue_2		#jumps too continue_2 loop
 finish : jr $ra			#jumps back to substring
 
 print:
-	mul $t1,$t1,4 #getting the amount of space needed to move the stack pointer to the beginning of the stack
-	add $sp, $sp $t1 #moving the stack pointer to the beginning of the stack	
+	mul $t1,$t1,4 		#multiply $t1 register to get the amount of space needed to move sp to the beginning of stack
+	add $sp, $sp $t1 	#adding register to sp to move the stack pointer to the beginning of the stack	
 done:	
-	sub $t1, $t1,4	#keeping track of amount of elements left
-	sub $sp,$sp,4 #moving the stack pointer to the next element	
-	lw $s7, 0($sp)	#storing that element into $s7
+	sub $t1, $t1,4		#keeping track of amount of elements left
+	sub $sp,$sp,4 		#moving the sp to the next element	
+	lw $s7, 0($sp)		#storing that value into register $s7
 	beq $s7,-1,invalidprint #checks to see if element is invalid	
 	li $v0, 1
-	lw $a0, 0($sp) #prints element
+	lw $a0, 0($sp)		 #prints element from stack
 	syscall
 comma:
-	beq $t1, 0,Exit #if there are now elements left it terminates the program
+	beq $t1, 0,Exit 	#if there are no elements left it exits the program
 	li $v0, 4
-	la $a0, comma_msg #prints a comma
+	la $a0, comma_msg 	#prints the comma_msg
 	syscall
 	j done
 invalidprint:
 	li $v0, 4
-	la $a0, NaN_msg #prints a nonvaild input
+	la $a0, NaN_msg 	#prints naN_msg
 	syscall	
-	j comma 	#jumps to print a comma
+	j comma 		#jumps to print a comma
 Exit:
-	li $v0, 10	# exits program
+	li $v0, 10		# exits program
 	syscall
 #############################################################################
 
