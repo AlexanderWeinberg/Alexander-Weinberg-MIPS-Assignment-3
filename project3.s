@@ -18,7 +18,7 @@ jal Subprogram_A      #unconditional jump to subprogram_A
 continue_1:
 	j print 	#jumps to print loop
 
-#########################Subprograms###################################################
+#########################Subprograms##################################################
 Subprogram_A:
 	sub $sp, $sp,4 	#creates space in the stack by subtracting
 	sw $a0, 0($sp) 	#stores user_input into the stack
